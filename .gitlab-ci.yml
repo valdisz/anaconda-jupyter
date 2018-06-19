@@ -1,0 +1,20 @@
+variables:
+  IMAGE_BASE_TAG: $CI_REGISTRY_IMAGE
+  IMAGE_TAG: $IMAGE_BASE_TAG:$CI_COMMIT_REF_NAME
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+
+publish:
+  stage: build
+  script:
+    - docker push $IMAGE_BASE_TAG:latest
+  only:
+    - master
+
