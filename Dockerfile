@@ -1,4 +1,4 @@
-FROM continuumio/anaconda3:latest
+FROM frolvlad/alpine-miniconda3:latest
 
 RUN groupadd -g 999 anaconda && \
     useradd -r -u 999 -g anaconda -m anaconda
